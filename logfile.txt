@@ -1,0 +1,6 @@
+postgres: invalid argument: "P"
+Try "postgres --help" for more information.
+2024-03-28 23:33:48.917 IST [7468] LOG:  redirecting log output to logging collector process
+2024-03-28 23:33:48.917 IST [7468] HINT:  Future log output will appear in directory "log".
+2024-03-28 23:49:32.338 IST [5468] LOG:  redirecting log output to logging collector process
+2024-03-28 23:49:32.338 IST [5468] HINT:  Future log output will appear in directory "log".
