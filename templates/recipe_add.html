@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %}Post Recipe{% endblock title %}
+
+{% block body %}
+{% include 'header.html'%}
+{% block content %}
+{% comment %}{% comment %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h1>Post Recipe</h1>
+                {% if form.errors %}
+          <div class="alert alert-danger">
+            Please correct the errors below.
+          </div>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ form.title.value }}">
+            {% if form.title.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category">
+              <option value=""></option>
+              {% for category in categories %}
+                <option value="{{ category.id }}" {% if form.category.value == category.id %}selected{% endif %}>{{ category.name }}</option>
+              {% endfor %}
+            </select>
+            {% if form.category.errors %}
+                          <div class="invalid-feedback">
+                {% for error in form.category.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <textarea class="form-control" id="ingredients" name="ingredients" rows="3">{{ form.ingredients.value }}</textarea>
+            {% if form.ingredients.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.ingredients.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="instructions">Instructions</label>
+            <textarea class="form-control" id="instructions" name="instructions" rows="5">{{ form.instructions.value }}</textarea>
+            {% if form.instructions.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.instructions.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="photo">Photo</label>
+            <input type="file" class="form-control-file" id="photo" name="photo">
+            {% if form.photo.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.photo.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <button type="submit" class="btn btn-primary my-3">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="text-align: center;">
+  <div class="container m-3">
+  <h2>Post a Recipe</h2>
+  </div>
+    <div class="card m-3 p-3">
+    <div class="card-body">
+    
+    <form method="post" enctype="multipart/form-data" class="my-2 my-lg-0">
+      {% csrf_token %}
+      {{ form.as_p }}
+       <div class="form-group">
+    <label for="{{ form.category.id_for_label }}">Category:</label>
+    <p>{{ form.category.name }}</p>
+    {{ form.category }}
+</div> 
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post Recipe</button>
+    </form>
+    </div>
+    </div>
+  </div>
+    {% endcomment %}
+  <div class="container mt-5">
+  <h1 class="text-center mb-5">Add a New Recipe</h1>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Example: Cafe Cappuccino" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category" required>
+            {% for category in categories %}
+              <option value="{{ category.pk }}">{{ category.name }}</option>
+            {% endfor %}
+            {{ categories }}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ingredients">Ingredients</label>
+          <textarea class="form-control" id="ingredients" name="ingredients" rows="3" placeholder="Example:
+instant coffee
+sugar" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="instructions">Instructions</label>
+          <textarea class="form-control" id="instructions" name="instructions" rows="6" placeholder="Example:
+Stir ingredients together.
+Process in a blender until powdered.
+Use 2 Tbsp.  of mixture for each cup of hot water." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="photo">Photo</label>
+          <input type="file" class="form-control-file" id="photo" name="photo" required>
+        </div>
+        <button type="submit" class="btn btn-primary my-2">Add Recipe</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% include 'footer.html' %}
+{% endblock body %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update Profile{% endblock title %}
+
+{% block body %}
+{% include 'header.html'%}
+
+{% block content %}
+
+<div class="container my-5">
+    <h1 class="text-center">Update Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Change Username:</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}">
+        </div>
+        <div class="form-group">
+            <label for="email">Change Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        {% comment %} <div class="form-group">
+            <label for="photo">Profile Photo:</label>
+            <input type="file" class="form-control-file" id="photo" name="photo">
+            {% if user.profile.photo %}
+                <img src="{{ user.profile.photo.url }}" class="img-thumbnail mt-3">
+            {% endif %}
+        </div> {% endcomment %}
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
+
+{% endblock content %}
+
+{% include 'footer.html' %}
+{% endblock body %}

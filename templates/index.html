@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+{% include 'header.html'%}
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid text-center">
+    <h1 class="display-4">Welcome to the Food Rating System</h1>
+    <p class="lead">Discover new recipes, rate and review your favorite dishes.</p>
+    <hr class="my-4">
+    <a href="{% url 'recipes' %}" class="btn btn-primary btn-lg mr-3">Explore Recipes</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'recipe_add' %}" class="btn btn-success btn-lg">Post a Recipe</a>
+    {% else %}
+      <a href="{% url 'register' %}" class="btn btn-success btn-lg">Join Now</a>
+    {% endif %}
+  </div>
+ <div class="container h-100">
+      <div class="d-flex justify-content-center h-100">
+        <div class="search">
+        <form method="post">
+        {% csrf_token %}
+          <input class="search_input" name="query" type="text" placeholder="Search a recipe, category or ingredient">
+          <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  <div class="container">
+  <h2 class="text-center mt-3">Featured Recipes</h2>
+<div class="row">
+{% for recipe in featured_recipes %}
+<div class="col-md-4">
+<div class="card mb-4 shadow-sm">
+{% if recipe.photo %}
+<img class="card-img-top" src="{{ recipe.photo.url }}" alt="{{ recipe.title }}">
+{% endif %}
+<div class="card-body">
+<h5 class="card-title">{{ recipe.title }}</h5>
+<p class="card-text">{{ recipe.category.name }}</p>
+<a href="{% url 'recipe' recipe.pk %}" class="btn btn-sm btn-outline-success">View Recipe</a>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+
+
+
+
+
+
+{% endblock content %}
+{% include 'footer.html' %}
+{% endblock body %}

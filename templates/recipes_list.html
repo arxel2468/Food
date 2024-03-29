@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Recipes{% endblock title %}
+
+{% block body %}
+{% include 'header.html'%}
+
+{% block content %}
+<style type="text/css">
+#id_tags{
+  overflow-y: scroll;
+  max-height: 100px;
+  border-radius: 5px;
+  padding:5px;
+}
+</style>
+
+{% if user.is_authenticated %}
+<div class="card">
+  <div class="card-body">
+    <form class="form-inline my-2 mx-2 my-lg-0" action="add">
+    <h3 class="card-title">Post your  recipes and get them rated
+    <a href="{% url 'recipe_add' %}" class="btn btn-success m-1">Post a Recipe</a>
+    </form>
+  </div>
+</div>
+{% else %}
+<div class="card">
+  <div class="card-body">
+    <form class="form-inline my-2 mx-2 my-lg-0" action="add">
+    <h3 class="card-title">Login  to post your recipes
+    <a href="{% url 'recipe_add' %}" class="btn btn-success m-1">Join Now</a>
+    </form>
+  </div>
+</div>
+{% endif %}
+<div class="container mx-5 my-2 px-5">
+<div class="col-4">
+<form method="GET">
+  {{myFilter.form|crispy}}
+  <input class="btn btn-primary" type="submit" value="Search">
+</form>
+</div>
+</div>
+<div class="row mx-4 my-3 px-3">
+  {% if recipes %}
+{% for recipe in recipes %}
+<div class="col-md-4">
+<div class="card mb-4">
+{% if recipe.photo %}
+<img class="card-img-top" src="{{ recipe.photo.url }}" alt="{{ recipe.title }}">
+{% endif %}
+<div class="card-body">
+<h5 class="card-title">{{ recipe.title }}</h5>
+<p class="card-text">{{ recipe.ingredients|truncatechars:100 }}...</p>
+<a href="{% url 'recipe' recipe.slug %}" class="btn btn-sm btn-outline-success">View Recipe</a>
+</div>
+</div>
+</div>
+{% endfor %}
+<div class="row mx-5">
+{% if recipes.has_other_pages %}
+  <ul class="pagination">
+{% for i in recipes.paginator.page_range %}
+  {% if recipes.number == i %}
+    <li class="page-item"><a class="active page-link">{{i}}</a></li>
+  {% else %}
+    <li class="page-item"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+  {% endif %}
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+
+{% else %}
+<h2 class="m-md-5 text-center"> No Recipes Found </h2>
+{% endif %}
+</div>
+</div>
+
+{% endblock content %}
+{% include 'footer.html' %}
+{% endblock body %}

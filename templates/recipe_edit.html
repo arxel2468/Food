@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit-{{ recipe.title }}{% endblock title %}
+
+{% block body %}
+{% include 'header.html'%}
+
+{% block content %}
+
+
+<h2 class="text-center my-2"> Edit {{recipe.title}}</h2>
+
+<div class="container my-4" style="margin-left:205px;">
+
+    <div class="col-md-9">
+    {% if form.errors %}
+          <div class="alert alert-danger">
+            Please correct the errors below.
+          </div>
+        {% endif %}
+      {% comment %}
+      <form method="post">
+      {% csrf_token %}
+       {{form|crispy}} {% endcomment %}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title">Change Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{ recipe.title }}" required>
+          {% if form.title.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="category">Change Category</label>
+          <select class="form-control" id="category" name="category"  required>
+            {% for category in categories %}
+              <option value="{{ category.pk }}" {% if category.id == recipe.category.id %} selected {% endif %}>{{ category.name }}</option>
+            {% endfor %}
+            {{ categories }}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ingredients">Change Ingredients</label>
+          <textarea class="form-control" id="ingredients" name="ingredients" rows="3" required>{{ recipe.ingredients }}</textarea>
+          {% if form.ingredients.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.ingredients.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="instructions">Change Instructions</label>
+          <textarea class="form-control" id="instructions" name="instructions" rows="6" required>{{ recipe.instructions }}</textarea>
+          {% if form.instructions.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.instructions.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="photo">Change Photo</label>
+          <input type="file" class="form-control-file" id="photo" name="photo" required>
+          {% if form.photo.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.photo.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+        </div>
+      <div class="row">
+      <button type="submit" class="btn btn-primary m-2 ">Update Recipe</button>
+      </form>
+      <a href="#" class="btn btn-danger m-2" data-toggle="modal" data-target="#deleteModal">Delete Recipe</a>
+      </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete {{recipe.title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this recipe? This action cannot be undone.<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a href="{% url 'recipe_delete' recipe.pk %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+{% include 'footer.html' %}
+{% endblock body %}

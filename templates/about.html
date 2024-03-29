@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About{% endblock title %}
+
+{% block body %}
+{% include 'header.html'%}
+
+{% block content %}
+
+
+  <!-- about.html -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>About Us</h1>
+      <hr></hr>
+      <p>We are a team of food enthusiasts who love to cook and share our recipes with others. Our website is a platform where you can find a variety of delicious and easy-to-follow recipes, as well as rate and review your favorite dishes.</p>
+      <p>Whether you are a beginner cook or a seasoned chef, we have something for everyone. From healthy meals to indulgent desserts, you will find a recipe that fits your taste and skill level.</p>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="{% static 'images/bg.jpg' %}" alt="About Us" class="img-fluid rounded-circle mx-auto d-block">
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5 m-2 p-5" data-w="1200">
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% static 'images/macarons-gb726074e0_1920.jpg' %}" class="card-img-top" alt="Recipe Image">
+        <div class="card-body">
+          <a class="nav-link" href="/recipes">
+          <h5 class="card-title">Browse and Rate Recipes</h5>
+          </a>
+          <p class="card-text">Discover new recipes and rate them to help others find the best dishes. You can browse by category, search by keyword, or filter by rating.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% static 'images/pizza-gd3f48d3c4_1920.jpg' %}" class="card-img-top" alt="Recipe Image">
+        <div class="card-body">
+          <a class="nav-link" href="{% url 'recipe_add' %}">
+          <h5 class="card-title">Create and Share Recipes</h5>
+        </a>
+          <p class="card-text">Add your own recipes to the site and share them with the community. You can include a recipe image, ingredients, instructions, and more.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% static 'images/chef-g5860d0a05_1280.png' %}" class="card-img-top" alt="Recipe Image">
+        <div class="card-body">
+          <a class="nav-link" href="/register">
+            <h5 class="card-title">Join the Community</h5>
+          </a>
+          <p class="card-text">Create an account to become a part of our community of home cooks and food enthusiasts. You can comment on other users recipes, and share your own creations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% include 'footer.html' %}
+{% endblock body %}

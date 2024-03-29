@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %}Register{% endblock title %}
+{% load static %}
+
+	{% block body %}
+	<body class="img js-fullheight" style="background-image: url({% static 'images/hero-bg.jpg' %})">
+	<section class="ftco-section" style="padding-top: 40px;">
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-3" >
+					<h2 class="heading-section">Register</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">Don't have an account?</h3>
+				
+		      	<form class="signup-form" method="POST" >
+					{% csrf_token %}
+					 {% for field in form %}
+					<div class="form-group">
+		      			{{ field }}
+		      		</div>
+					{% endfor %} 
+					
+					<div class="form-group">
+						<button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
+					</div>
+					{% if errors %}
+				<h6 class="mb-4 text-center">Check for any mistake</h6>
+				{% endif %}
+					<div class="form-group d-md-flex">
+						<div class="w-80">
+							<label>Already a registered user?  <a href="/login" 
+                                style="color: Blue"> Login</a> 
+								{% comment %} #fbceb5 {% endcomment %}
+							</label>
+
+						</div>
+					</div>
+					<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+	          <div class="d-md -flex text-center">
+	          	<a href="{% provider_login_url 'github' %}" class="btn btn-primary px-4 py-2 mr-md-1 rounded m-1"><span class="fa fa-github mr-2"></span> Github</a>
+	          	{% comment %} <a href="{% provider_login_url 'twitter' %}" class="btn btn-primary px-4 py-2 ml-md-1 rounded m-1"><span class="fa fa-twitter mr-2"></span> Twitter</a> {% endcomment %}
+	          </div> 
+	          </form>
+		      </div>
+			</div>
+			</div>
+		</div>
+	</form>
+	</section>
+
+  <script>
+  var check = function(){
+    if(document.getElementById('password-field').value == document.getElementById('confirm-password-field').value){
+        document.getElementById('message').style.color = '#fbceb5';
+        document.getElementById('message').innerHTML = '';
+    } else {
+        document.getElementById('message').style.color = '#fbceb5';
+        document.getElementById('message').innerHTML = '      Recheck';
+    }
+  }
+</script>
+
+
+{% endblock body %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ recipe.title }}{% endblock title %}
+
+{% block body %}
+{% include 'header.html'%}
+
+{% block content %}
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="">{{ recipe.title }}</h2>
+            <p class="text-muted">Category: {{ recipe.category.name }}</p>
+            <img src="{{ recipe.photo.url }}" alt="{{ recipe.title }}" class="img-fluid" style="height: 400px; width: 400px;">
+            <h4>Overall Rating: {{ ratings }}</h4>
+            <h5>Ingredients:</h5>
+            <ol>
+            {% for ingredient in recipe.ingredients.splitlines %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+            </ol>
+            <h5>Instructions:</h5>
+            <ol class="">
+                {% for instruction in recipe.instructions.splitlines %}
+                    <li>{{ instruction }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-4">
+            <h3>Add a Review</h3>
+    <div class="container mt-5">
+      <form method="post" enctype="multipart/form-data" class="form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary my-2">Post Review</button>
+            </form>
+</div>
+{% else %}
+<div class="col-md-4">
+<h3 class="my-2">Want to share your opinion? </h3>
+<form class="form-inline my-2 my-lg-0" action="/login">
+<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+</form>
+{% endif %}
+{% if reviews %}
+<h5 class="my-4">Reviews:</h5>
+{% for review in reviews %}
+<div class="card my-2">
+<div class="card-body">
+<p class="card-text">{{ review.comment }}</p>
+<p class="text-muted">Rated {{ review.rating }} by {{ review.user }}</p>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+</div>
+
+</div>
+
+{% endblock content %}
+
+{% include 'footer.html' %}
+{% endblock body %}

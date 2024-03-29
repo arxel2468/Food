@@ -1,0 +1,48 @@
+{% load socialaccount %} 
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}
+  {% block head-meta %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="Food, Best food, Good food, Dishes, recipes, delicious, best rated recipes">
+  {% endblock head-meta %}
+    <!-- Bootstrap CSS -->
+    {% block head-css %}
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- Added manually -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+  {% endblock head-css %}
+    <title> {% block title %}{% endblock title %} | Food Rating System</title>
+    {% endblock head %}
+</head>
+  <body>
+{% block body %} 
+    
+{% block content %}
+
+{% endblock content %}
+
+{% endblock body %}
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Added Scripts -->
+  {% block head-javascript %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script> 
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock head-javascript %}
+  </body>
+</html>
